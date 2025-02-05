@@ -1,0 +1,50 @@
+:root {
+    --background-color: #FFFDF8;
+}
+
+.select {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border: 2px solid black;
+    border-radius: 300px;
+    padding: 10px 15px;
+    background-color: var(--background-color);
+}
+
+
+
+
+.select-popup {
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 10px;
+    transform-origin: var(--transform-origin);
+    transition:
+        transform 150ms,
+        opacity 150ms;
+    background-color: var(--background-color);
+}
+
+.select-arrow {
+
+}
+
+.select-item {
+    display: grid;
+    grid-template-columns: 0.75rem 1fr;
+    gap: 5px
+}
+
+.select-item-indicator {
+    grid-column-start: 1;
+}
+
+.select-item-text {
+    grid-column-start: 2;
+}
+
+.select-separator {
+
+}

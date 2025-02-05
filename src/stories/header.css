@@ -1,0 +1,64 @@
+:root {
+  --primary-color: #C2ACF2;
+  --background-color: #FFFDF8;
+}
+
+.storybook-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+  padding: 15px 20px;
+}
+
+.storybook-header svg {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.storybook-header h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin: 6px 0 6px 10px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.storybook-header button + button {
+  margin-left: 10px;
+}
+
+.storybook-header .welcome {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.header-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.header-secondary {
+
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.header-icon {
+  width: 70px;
+}
+
+.header-brand {
+  display: flex;
+  gap: 10px
+}
+
+.header-brandname-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

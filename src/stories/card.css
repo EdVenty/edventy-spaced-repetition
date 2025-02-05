@@ -1,0 +1,60 @@
+:root {
+  --primary-color: #C2ACF2;
+  --secondary-color: #72cbea;
+  --green-color: #8FD9A1;
+  --red-color: #F29999;
+  --brown-color: #400601;
+  --warm-color: #FFFDF8;
+
+  --dark-color: var(--brown-color);
+  --light-color: var(--warm-color);
+}
+
+.card {
+  border: black 3px solid;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--light-color);
+  color: black;
+}
+
+.card-content {
+  padding: 20px 30px;
+  width: -webkit-fill-available;
+}
+
+p {
+  margin: 0;
+}
+
+.card-sidebar-content {
+  height: 100%;
+  /* padding: 20px 30px; */
+}
+
+.card-sidebar--left {
+  border-right: 3px black solid;
+  height: 100%;
+}
+
+.card-sidebar--right {
+  border-left: 3px black solid;
+  height: 100%;
+}
+
+.card--primary {
+  background-color: var(--primary-color);
+}
+
+.card--secondary {
+  background-color: var(--secondary-color);
+}
+
+.card--red {
+  background-color: var(--red-color);
+}
+
+.card--green {
+  background-color: var(--green-color);
+}

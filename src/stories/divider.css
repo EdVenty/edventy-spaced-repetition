@@ -1,0 +1,9 @@
+.divider--horizontal {
+  border-bottom: 3px black solid;
+  width: --webkit-fill-available;
+}
+
+.divider--vertical {
+  border-right: 3px black solid;
+  height: --webkit-fill-available;
+}

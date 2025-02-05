@@ -1,0 +1,43 @@
+.scrollview {
+    position: relative;
+    height: -webkit-fill-available;
+}
+
+.scrollview--horizontal {
+    overflow-x: scroll;
+    overflow-y: visible;
+}
+
+.scrollview--vertical {
+    overflow-y: scroll;
+    overflow-x: visible;
+}
+
+.scrollview::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollview-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0
+}
+
+.scrollview-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0
+}
+
+.scrollview-control-horizontal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.scrollview-control-vertical {
+    display: flex;
+    justify-content: center;
+}

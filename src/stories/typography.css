@@ -1,0 +1,9 @@
+.text-p {
+    font-family: "Hanken Grotesk", sans-serif;
+    margin: 0;
+}
+
+.text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
+    font-family: "Prompt", sans-serif;
+    margin: 0;
+}

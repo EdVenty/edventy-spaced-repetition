@@ -1,0 +1,26 @@
+
+:root {
+    --primary-color: #C2ACF2;
+    --secondary-color: #72cbea;
+    --green-color: #8FD9A1;
+    --red-color: #F29999;
+    --brown-color: #400601;
+  
+    --dark-color: var(--brown-color);
+  }
+  
+
+.quiz-page-root {
+    background-color: var(--primary-color);
+    height: 100vh;
+}
+
+.quiz-page-section {
+    color: white;
+    max-width: 800px;
+}
+
+body {
+    height: 100vh;
+}
+
