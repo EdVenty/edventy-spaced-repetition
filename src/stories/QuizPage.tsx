@@ -66,6 +66,14 @@ flowchart LR
     question: "**why?**",
     answer: `- because
 - it's not what you think.`
+  },
+  {
+    question: 'Lorem ipsum',
+    answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam maximus pretium erat quis malesuada. Suspendisse in facilisis est. Phasellus blandit ornare arcu, ut commodo velit blandit sit amet. Praesent auctor massa ex, vitae euismod ligula semper nec. Etiam vitae tempor turpis. Nunc non interdum dui, at finibus nibh. Nulla leo ipsum, condimentum ac sollicitudin convallis, ultrices at diam. Phasellus lobortis erat eros, et bibendum tortor tempus non.
+
+Pellentesque eu ligula aliquet, vehicula eros quis, rutrum nibh. Sed ac cursus lectus. Phasellus ut rhoncus sapien. Pellentesque varius lacinia rhoncus. Vivamus hendrerit nulla ut tortor venenatis fermentum. In convallis, neque non tincidunt lacinia, risus nulla faucibus lorem, nec ullamcorper eros velit a velit. Sed varius hendrerit dignissim. Nam id orci ac elit porta posuere. In in convallis libero, vitae tristique diam. Cras in venenatis diam. Nunc tortor lectus, porttitor eu consequat at, cursus vel neque. Nunc vulputate nibh quis felis pellentesque, nec vestibulum risus finibus. Integer ac ligula vulputate, hendrerit tortor at, blandit lectus. Integer pharetra eleifend est, vel dictum lacus maximus at.
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi a urna in massa vehicula pulvinar. Proin bibendum quam ut ex vulputate, non posuere purus viverra. Nulla euismod elementum porta. Praesent sed magna vel mauris malesuada lacinia nec non felis. Pellentesque volutpat iaculis faucibus. Mauris feugiat viverra urna, sit amet faucibus felis bibendum eget. Fusce eu ex sit amet felis elementum faucibus id ac felis. Sed pharetra viverra lacus, et vulputate lectus. Nunc ornare, odio non condimentum mattis, justo mauris posuere est, id volutpat nisi leo a ante. Ut ultricies faucibus vulputate. Vivamus vel ipsum sem. Vivamus consequat lacus at euismod pretium. Suspendisse accumsan, libero nec commodo vulputate, mauris nisi bibendum orci, vitae commodo odio urna a justo.`
   }
 ]
 
@@ -98,7 +106,7 @@ export const QuizPage: React.FC = () => {
           opened={isAnswerOpened}
           question={q?.question} 
           answer={q?.answer} 
-          style={{width: '100%'}} 
+          style={{width: '100%', maxHeight: 400}} 
           allQuestions={questions.map(q => {return {title: q?.question}})}
           onPageSelected={onPageSelected}
           onOpen={() => setIsAnswerOpened(true)}

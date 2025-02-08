@@ -19,6 +19,8 @@ export interface ButtonProps {
   label?: string;
   /** Button icon contents */
   icon?: React.ReactElement<typeof FontAwesomeIcon>;
+  /** Is button disabled. */
+  disabled?: boolean;
   /** Optional click handler */
   onClick?: () => void;
 }
@@ -33,12 +35,14 @@ export const Button = ({
   onClick,
   label,
   icon,
+  disabled = false,
   children,
   ...props
 }: ButtonProps & React.HTMLAttributes<HTMLButtonElement>) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   const _onClick = () => {
+    if(disabled) return;
     onClick?.();
 
     if(!buttonRef.current) return;
@@ -61,7 +65,7 @@ export const Button = ({
     {...props}
     ref={buttonRef}
     type="button"
-    className={['storybook-button', `storybook-button--${size}`, `storybook-button--${variant ?? "primary"}${simple ? "-simple" : ""}`, props.className].join(' ')}
+    className={['storybook-button', `storybook-button--${size}`, `storybook-button--${variant ?? "primary"}${simple ? "-simple" : ""} button--${disabled ? 'disabled' : 'active'}`, props.className].join(' ')}
     style={{ backgroundColor, color }}
     onClick={_onClick}
     >

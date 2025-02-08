@@ -27,7 +27,7 @@ export const Vertical: Story = {
   args: {
     children: mockSpacingContentVertical,
     style: {
-        height: 30
+        height: 100
     }
   },
 }
@@ -37,7 +37,28 @@ export const Horizontal: Story = {
       children: mockSpacingContentHorizontal,
       direction: 'horizontal',
       style: {
-          width: 100
+          width: 150
       }
     },
   }
+
+export const Relative: Story = {
+  args : {
+    children: mockSpacingContentVertical,
+    controlsPosition: 'relative',
+    style: {
+      height: 200
+    }
+  }
+}
+
+export const RelativeHorizontal: Story = {
+  args : {
+    children: mockSpacingContentHorizontal,
+    direction: 'horizontal',
+    controlsPosition: 'relative',
+    style: {
+      width: 200
+    }
+  }
+}

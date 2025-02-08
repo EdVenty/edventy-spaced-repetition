@@ -86,7 +86,7 @@ export const QuizzesOverviewPage: React.FC = () => {
         onCreateAccount={() => setUser({ name: 'Jane Doe' })}
       />
       <section className="quizzes-overview-page">
-        <Scrollview direction="horizontal">
+        <Scrollview direction="horizontal" step={200}>
           <Spacing>
               {quizzes.map(q => <QuizPreview {...q} className='h-full' style={{width: 250}} clickable/>)}
           </Spacing>
