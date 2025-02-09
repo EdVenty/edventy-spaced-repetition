@@ -18,18 +18,18 @@ type Path = {
 
 const pages: Path[] = [
   {
-    text: "Home",
-    value: "home"
+      value: "",
+      text: "Home"
   },
   {
-    text: "Quiz",
-    value: "quiz"
+      value: "q",
+      text: "Quizzes"
   },
   {
-    text: "Notes",
-    value: "notes"
+      value: "n",
+      text: "Notes"
   }
-];
+]
 
 type QuizHead = {
     title: string;
@@ -80,6 +80,7 @@ export const QuizzesOverviewPage: React.FC = () => {
     <article className='quizzes-overview-page-root'>
       <Header
         pages={pages}
+        current='q'
         user={user}
         onLogin={() => setUser({ name: 'Jane Doe' })}
         onLogout={() => setUser(undefined)}

@@ -66,3 +66,26 @@ export const Primary: Story = {
   ]
   }
 };
+
+export const Mobile: Story = {
+  args: {
+    pages: [
+      {
+          value: "",
+          text: "Home"
+      },
+      {
+          value: "q",
+          text: "Quizzes"
+      },
+      {
+          value: "n",
+          text: "Notes"
+      }
+    ],
+    current: "q",
+    style: {
+        maxWidth: '375px'
+    },
+  },
+};

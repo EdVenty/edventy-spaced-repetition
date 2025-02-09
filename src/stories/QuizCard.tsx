@@ -50,7 +50,20 @@ export const QuizCard = ({
     ...props
 }: QuizCardProps & React.HTMLProps<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>) => {
     const [answerShown, setAnswerShown] = React.useState(false);
+    const [cardHeight, setCardHeight] = React.useState(document.body.scrollHeight);
 
+
+    React.useEffect(() => {
+        const updateHeight = () => {
+            console.log("ebat")
+            setCardHeight(document.body.scrollHeight * 0.7);
+        }
+
+        window.addEventListener('resize', updateHeight);
+        return () => {
+            window.removeEventListener('resize', updateHeight);
+        }
+    }, []);
 
     const onAnswerButton = () => {
         if(!(opened ?? answerShown)){
@@ -66,7 +79,7 @@ export const QuizCard = ({
         <Card.Content {...contentProps}>
            <Spacing direction='vertical' justify='space-between' style={{height: '100%'}}>
                 <Spacing className='h-full' direction='vertical' spacing={30}>
-                    <Scrollview step={100} {...scrollviewProps} style={{maxHeight: 500, ...scrollviewProps?.style}}>
+                    <Scrollview step={100} {...scrollviewProps} style={{maxHeight: '50vh', ...scrollviewProps?.style}}>
                         <Spacing spacing={30} direction='vertical'>
                             <Spacing spacing={30} direction='vertical'>
                                 <Spacing spacing={10} direction='vertical'>

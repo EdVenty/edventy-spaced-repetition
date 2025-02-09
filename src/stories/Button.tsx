@@ -15,6 +15,8 @@ export interface ButtonProps {
   color?: string;
   /** How large should the button be? */
   size?: 'small' | 'medium' | 'large';
+  /** Font type */
+  font?: React.ComponentProps<typeof Typography>['variant'];
   /** Button contents */
   label?: string;
   /** Button icon contents */
@@ -30,6 +32,7 @@ export const Button = ({
   size = 'medium',
   simple,
   variant,
+  font,
   backgroundColor,
   color,
   onClick,
@@ -69,10 +72,10 @@ export const Button = ({
     style={{ backgroundColor, color }}
     onClick={_onClick}
     >
-      {children ?? <div className='button-content'>
-        {icon}
-        {label ? <Typography.Paragraph>{label}</Typography.Paragraph> : null}
-      </div>}
+        {children ?? <div className='button-content'>
+          {icon}
+          {label ? <Typography variant={font}>{label}</Typography> : null}
+        </div>}
     </button>
   );
 };

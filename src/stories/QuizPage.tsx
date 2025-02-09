@@ -4,7 +4,7 @@ import { Header } from './Header';
 import './page.css';
 import './quizPage.css';
 import { Spacing } from './Spacing';
-import { QuizCard, QuizCardProps } from './QuizCard';
+import { QuizCard } from './QuizCard';
 
 type User = {
   name: string;
@@ -17,18 +17,18 @@ type Path = {
 
 const pages: Path[] = [
   {
-    text: "Home",
-    value: "home"
+      value: "",
+      text: "Home"
   },
   {
-    text: "Quiz",
-    value: "quiz"
+      value: "q",
+      text: "Quizzes"
   },
   {
-    text: "Notes",
-    value: "notes"
+      value: "n",
+      text: "Notes"
   }
-];
+]
 
 // const cardProps: QuizCardProps = {
 //   questionText: "What is OSI?",
@@ -94,6 +94,7 @@ export const QuizPage: React.FC = () => {
     <article className='quiz-page-root'>
       <Header
         pages={pages}
+        current='q'
         user={user}
         primary
         onLogin={() => setUser({ name: 'Jane Doe' })}

@@ -41,6 +41,7 @@ export const ButtonGroup = ({
 }: ButtonGroupProps) => {
   const renderedItems = items ? items.map((v, i) => <Button 
     label={v.text} 
+    font='h3'
     onClick={() => onClick?.(v.value, i, v)} 
     simple={buttonSimple} 
     color={buttonColor} 

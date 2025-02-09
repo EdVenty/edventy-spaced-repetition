@@ -3,6 +3,9 @@ import { Button } from './Button';
 import './header.css';
 import { ButtonGroup } from './ButtonGroup';
 import { Typography } from './Typography';
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 type User = {
   name: string;
@@ -17,6 +20,7 @@ export interface HeaderProps {
   user?: User;
   primary?: boolean;
   pages?: Path[];
+  current?: string;
 
   onLogin?: () => void;
   onLogout?: () => void;
@@ -27,19 +31,39 @@ export const Header = ({
   primary = false,
   user, 
   pages,
+  current,
   onLogin, 
   onLogout, 
-  onCreateAccount 
-}: HeaderProps) => (
-  <header className={`${primary ? 'header-primary' : 'header-secondary'}`}>
+  onCreateAccount,
+  ...props
+}: HeaderProps & React.HTMLProps<HTMLElement> & React.HTMLAttributes<HTMLElement>) => {
+  const headerRef = React.useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+  
+  React.useEffect(() => {
+    const handleResize = () => {
+      if(headerRef.current) setIsMobile(headerRef.current.clientWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [headerRef.current]);
+
+  const currentPage = pages?.find(v => v.value === current);
+
+  return <header ref={headerRef} {...props} className={[`${primary ? 'header-primary' : 'header-secondary'}`, props.className].join(' ')}>
     <div className="storybook-header">
       <div className="header-brand">
         {primary ? <OutlinedLogo className="header-icon"/> : <PrimaryLogo className="header-icon"/>}
-        <div className="header-brandname-container">
+        {isMobile ? null : <div className="header-brandname-container">
           <Typography.Heading1 className="header-brandname">ELP</Typography.Heading1>
-        </div>
+        </div>}
       </div>
-      {pages ? <ButtonGroup items={pages} buttonColor={primary ? 'white' : undefined}/> : null}
+      {pages ? <ButtonGroup items={isMobile ? (currentPage ? [currentPage] : []) : pages} buttonColor={primary ? 'white' : undefined}/> : null}
       <div>
         {user ? (
           <>
@@ -48,13 +72,13 @@ export const Header = ({
         ) : (
           <div className='header-actions'>
             <Button size="small" onClick={onLogin} label="Log in" variant={primary ? 'outlined' : 'primary'}/>
-            <Button size="small" onClick={onCreateAccount} label="Sign up" variant={primary ? 'primary' : 'outlined'}/>
+            {isMobile ? null : <Button size="small" onClick={onCreateAccount} label="Sign up" variant={primary ? 'primary' : 'outlined'}/>}
           </div>
         )}
       </div>
     </div>
   </header>
-);
+};
 
 const PrimaryLogo = ({...props}) => {
   return <svg width="99" height="65" viewBox="0 0 99 65" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
