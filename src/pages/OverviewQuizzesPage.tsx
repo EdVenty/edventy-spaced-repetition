@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { FirebaseContext } from '../context/firebase';
 import { IQuiz } from '../entities/Quiz';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Header } from '../stories/Header';
 import { Spacing } from '../stories/Spacing';
 import { QuizPreview } from '../stories/QuizPreview';
@@ -21,16 +21,16 @@ type Path = {
 
 const pages: Path[] = [
     {
-      text: "Home",
-      value: "home"
+        text: "Home",
+        value: "/"
     },
     {
-      text: "Quiz",
-      value: "quiz"
+        text: "Quizzes",
+        value: "/q"
     },
     {
-      text: "Notes",
-      value: "notes"
+        text: "Notes",
+        value: "/n"
     }
 ];
 
@@ -40,6 +40,7 @@ export const OverviewQuizzesPage: React.FC = () => {
     const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         if(!db){
@@ -71,6 +72,8 @@ export const OverviewQuizzesPage: React.FC = () => {
     return <article className='quizzes-overview-page-root'>
         <Header
             pages={pages}
+            onNavClick={(p) => navigate(p)}
+            current={'/' + location.pathname.split('/')[1]}
         />
         <section className="quizzes-overview-page">
         <Scrollview direction="horizontal">

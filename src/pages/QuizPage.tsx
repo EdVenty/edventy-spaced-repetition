@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startQuiz, collapseAnswer, setQuestion } from "../store/quizSlice";
 import { IQuizProgress } from "../entities/QuizProgress";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useLocation } from "react-router";
 import { FirebaseContext } from "../context/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { firestoreDocToQuiz } from "../functions/firestore";
@@ -34,15 +34,15 @@ type Path = {
 const pages: Path[] = [
 {
     text: "Home",
-    value: "home"
+    value: "/"
 },
 {
-    text: "Quiz",
-    value: "quiz"
+    text: "Quizzes",
+    value: "/q"
 },
 {
     text: "Notes",
-    value: "notes"
+    value: "/n"
 }
 ];
 
@@ -50,6 +50,7 @@ const pages: Path[] = [
 export function QuizPage () {
     const { db } = useContext(FirebaseContext);
     const navigate = useNavigate();
+    const location = useLocation();
     const { quizId } = useParams();
     // const [ isPaginationOnTop, setIsPaginationOnTop ] = useState(false);
     // const [ shouldUpdateProgress, setShouldUpdateProgress ] = useState(false);
@@ -154,15 +155,17 @@ export function QuizPage () {
               <Header
                 pages={pages}
                 primary
+                onNavClick={(p) => navigate(p)}
+                current={'/' + location.pathname.split('/')[1]}
               />
-              <section className="w-full">
+              <section className="w-full quiz-content">
                 <Spacing align='center' direction='vertical'>
                     <QuizCard.WithMarkdown 
                         opened={isAnswerOpened}
                         title={quiz.title}
                         question={q.question} 
                         answer={q.answer} 
-                        style={{width: '100%', maxWidth: '1000px', height: '600px'}} 
+                        style={{width: '100%', maxWidth: '1000px'}} 
                         allQuestions={quiz.questions.map(q => {return {title: q?.question}})}
                         onPageSelected={onPageSelected}
                         onOpen={() => setIsAnswerOpened(true)}

@@ -25,6 +25,7 @@ export interface HeaderProps {
   onLogin?: () => void;
   onLogout?: () => void;
   onCreateAccount?: () => void;
+  onNavClick?: (p: string) => void;
 }
 
 export const Header = ({ 
@@ -35,6 +36,7 @@ export const Header = ({
   onLogin, 
   onLogout, 
   onCreateAccount,
+  onNavClick,
   ...props
 }: HeaderProps & React.HTMLProps<HTMLElement> & React.HTMLAttributes<HTMLElement>) => {
   const headerRef = React.useRef<HTMLElement>(null);
@@ -63,7 +65,7 @@ export const Header = ({
           <Typography.Heading1 className="header-brandname">ELP</Typography.Heading1>
         </div>}
       </div>
-      {pages ? <ButtonGroup items={isMobile ? (currentPage ? [currentPage] : []) : pages} buttonColor={primary ? 'white' : undefined}/> : null}
+      {pages ? <ButtonGroup items={isMobile ? (currentPage ? [currentPage] : []) : pages} buttonColor={primary ? 'white' : undefined} onClick={(v) => onNavClick?.(v)}/> : null}
       <div>
         {user ? (
           <>

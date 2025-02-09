@@ -7,6 +7,8 @@ import { Typography } from './Typography';
 import { Content } from './Content';
 import { Pagination } from './Pagination';
 import { Scrollview } from './Scrollview';
+import { Divider } from './Divider';
+import { Rating } from './Rating';
 
 export type QuestionHead = {
     title: string;
@@ -51,17 +53,19 @@ export const QuizCard = ({
 }: QuizCardProps & React.HTMLProps<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>) => {
     const [answerShown, setAnswerShown] = React.useState(false);
     const [cardHeight, setCardHeight] = React.useState(document.body.scrollHeight);
+    const [showSidebar, setShowSidebar] = React.useState(document.body.scrollWidth > 800);
+    const [rating, setRating] = React.useState(0);
 
 
     React.useEffect(() => {
-        const updateHeight = () => {
-            console.log("ebat")
+        const updateReizeDependantProperties = () => {
             setCardHeight(document.body.scrollHeight * 0.7);
+            setShowSidebar(document.body.scrollWidth > 800);
         }
 
-        window.addEventListener('resize', updateHeight);
+        window.addEventListener('resize', updateReizeDependantProperties);
         return () => {
-            window.removeEventListener('resize', updateHeight);
+            window.removeEventListener('resize', updateReizeDependantProperties);
         }
     }, []);
 
@@ -110,18 +114,26 @@ export const QuizCard = ({
                 </div>
             </Spacing>
         </Card.Content>
-        {/* <Card.Sidebar float='right' {...sidebarProps}>
-            {title ? <Typography.Heading3>{title}</Typography.Heading3> : null}
-            <Scrollview>
-                <div style={{height: '100%', padding: "20px 30px"}}>
-                    <Spacing direction='vertical'>
-                        {allQuestions?.map(q => <Spacing>
-                            <Typography.Paragraph>{q.title}</Typography.Paragraph>
-                        </Spacing>)}
-                </Spacing>
-                </div>
-            </Scrollview>
-        </Card.Sidebar> */}
+       {showSidebar ? <Card.Sidebar float='right' {...sidebarProps}>
+        <Spacing divider={<Divider />} direction='vertical' style={{height: '100%'}} spacing={0} justify='space-between'>
+            <div>
+                {title ? <Typography.Paragraph style={{margin: "20px 30px 0 30px"}} strong>{title}</Typography.Paragraph> : null}
+                <Scrollview style={{marginBlock: '20px'}} variant='outlined' step={200}>
+                    <div style={{padding: "20px 30px"}}>
+                        <Spacing direction='vertical'>
+                            {allQuestions?.map(q => <Spacing>
+                                <Typography.Paragraph>{q.title}</Typography.Paragraph>
+                            </Spacing>)}
+                        </Spacing>
+                    </div>
+                </Scrollview>
+            </div>
+            <div style={{padding: '20px 30px'}}>
+                <Typography strong>Rate quiz</Typography>
+                <Rating onApply={(v) => setRating(v)} value={0}/>
+            </div>
+        </Spacing>
+        </Card.Sidebar> : null}
   </Card>;
 }
 

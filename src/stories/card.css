@@ -13,15 +13,23 @@
 .card {
   border: black 3px solid;
   border-radius: 30px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 300px;
+  /* justify-content: space-between; */
   background-color: var(--light-color);
   color: black;
+  /* max-height: 80vh; */
 }
 
 .card-content {
   padding: 20px 30px;
-  width: -webkit-fill-available;
+  grid-column-start: 1;
+}
+
+@media screen and (max-width: 800px) {
+  .card-content {
+    grid-column: span 2;
+  }
 }
 
 p {
@@ -29,6 +37,9 @@ p {
 }
 
 .card-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  grid-column-start: 2;
   height: 100%;
   /* padding: 20px 30px; */
 }

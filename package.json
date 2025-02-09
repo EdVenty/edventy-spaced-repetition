@@ -29,6 +29,7 @@
     "@base-ui-components/react": "^1.0.0-alpha.5",
     "@chromatic-com/storybook": "^3.2.4",
     "@eslint/js": "^9.17.0",
+    "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@reduxjs/toolkit": "^2.5.1",
     "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-interactions": "^8.5.3",

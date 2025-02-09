@@ -24,19 +24,19 @@ export const Typography = ({
   const inner = strong ? <strong>{children}</strong> : children;
   switch(variant){
     case 'h1':
-      return <h1 {...props} className={['text-h1', props.className].join(' ')} style={{fontSize: font}}>{inner}</h1>;
+      return <h1 {...props} className={['text-h1', props.className].join(' ')} style={{fontSize: font, ...props.style}}>{inner}</h1>;
     case 'h2':
-      return <h2 {...props} className={['text-h2', props.className].join(' ')} style={{fontSize: font}}>{inner}</h2>;
+      return <h2 {...props} className={['text-h2', props.className].join(' ')} style={{fontSize: font, ...props.style}}>{inner}</h2>;
     case 'h3':
-      return <h3 {...props} className={['text-h3', props.className].join(' ')} style={{fontSize: font}}>{inner}</h3>;
+      return <h3 {...props} className={['text-h3', props.className].join(' ')} style={{fontSize: font, ...props.style}}>{inner}</h3>;
     case 'h4':
-      return <h4 {...props} className={['text-h4', props.className].join(' ')} style={{fontSize: font}}>{inner}</h4>;
+      return <h4 {...props} className={['text-h4', props.className].join(' ')} style={{fontSize: font, ...props.style}}>{inner}</h4>;
     case 'h5':
-      return <h5 {...props} className={['text-h5', props.className].join(' ')} style={{fontSize: font}}>{inner}</h5>;
+      return <h5 {...props} className={['text-h5', props.className].join(' ')} style={{fontSize: font, ...props.style}}>{inner}</h5>;
     case 'h6':
-      return <h6 {...props} className={['text-h6', props.className].join(' ')} >{children}</h6>;
+      return <h6 {...props} className={['text-h6', props.className].join(' ')} style={{fontSize: font, ...props.style}}>{inner}</h6>;
     default:
-      return <p {...props} className={['text-p', props.className].join(' ')} style={{fontSize: font}}>{inner}</p>;
+      return <p {...props} className={['text-p', props.className].join(' ')} style={{fontSize: font, ...props.style}}>{inner}</p>;
   };
 };
 

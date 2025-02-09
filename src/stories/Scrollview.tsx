@@ -19,6 +19,8 @@ export interface ScrollviewProps {
     behavior?: ScrollBehavior;
     /** Disabe hiding controls when the scroll is on the creasing edge. */
     disableAutoHide?: boolean;
+    /** Controls variant */
+    variant?: React.ComponentProps<typeof Button>['variant'];
     /** Content to display. */
     children?: React.ReactNode;
 }
@@ -32,6 +34,7 @@ export const Scrollview = ({
     hideButtons = false,
     behavior = 'smooth',
     disableAutoHide = false,
+    variant,
     children,
     ...props
 }: ScrollviewProps & React.HTMLProps<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>) => {
@@ -115,11 +118,11 @@ export const Scrollview = ({
     >
         {hideButtons ? content : <>
             <div className={`scrollview-control scrollview-control-${direction} scrollview-${isHorizontal ? 'left' : 'up'}--${controlsPosition} scrollview-control--${isStarted ? 'visible' : 'hidden'}`}>
-                <Button icon={<FontAwesomeIcon icon={isHorizontal ? faAngleLeft : faAngleUp} />} onClick={scrollPrev} disabled={!isStarted}/>
+                <Button icon={<FontAwesomeIcon icon={isHorizontal ? faAngleLeft : faAngleUp} />} onClick={scrollPrev} disabled={!isStarted} variant={variant}/>
             </div>
             {content}
             <div className={`scrollview-control scrollview-control-${direction} scrollview-${isHorizontal ? 'right' : 'down'}--${controlsPosition} scrollview-control--${isFinished ? 'hidden' : 'visible'}`}>
-                <Button icon={<FontAwesomeIcon icon={isHorizontal ? faAngleRight : faAngleDown} />} onClick={scrollNext} disabled={isFinished}/>
+                <Button icon={<FontAwesomeIcon icon={isHorizontal ? faAngleRight : faAngleDown} />} onClick={scrollNext} disabled={isFinished} variant={variant}/>
             </div>
         </>}
     </div>
