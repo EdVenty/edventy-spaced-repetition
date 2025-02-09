@@ -37,7 +37,7 @@ export const Horizontal: Story = {
       children: mockSpacingContentHorizontal,
       direction: 'horizontal',
       style: {
-          width: 150
+          width: 300
       }
     },
   }
@@ -58,7 +58,7 @@ export const RelativeHorizontal: Story = {
     direction: 'horizontal',
     controlsPosition: 'relative',
     style: {
-      width: 200
+      width: 300
     }
   }
 }

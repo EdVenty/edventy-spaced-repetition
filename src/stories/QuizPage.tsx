@@ -106,7 +106,7 @@ export const QuizPage: React.FC = () => {
           opened={isAnswerOpened}
           question={q?.question} 
           answer={q?.answer} 
-          style={{width: '100%', maxHeight: 400}} 
+          style={{width: '100%'}} 
           allQuestions={questions.map(q => {return {title: q?.question}})}
           onPageSelected={onPageSelected}
           onOpen={() => setIsAnswerOpened(true)}

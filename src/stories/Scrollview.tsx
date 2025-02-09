@@ -40,37 +40,32 @@ export const Scrollview = ({
     const [ isStarted, setIsStarted ] = React.useState(false);
     const [ isFinished, setIsFinished ] = React.useState(false);
 
+    const scrollCB = () => {
+        if(contentRef.current === null) return;
+
+        const scrollShift = isHorizontal ? contentRef.current.scrollLeft : contentRef.current.scrollTop;
+        const scrollDim = isHorizontal ? contentRef.current.scrollWidth : contentRef.current.scrollHeight;
+        const offsetDim = isHorizontal ? contentRef.current.offsetWidth : contentRef.current.offsetHeight;
+        
+        setIsStarted(scrollShift > 0);
+        setIsFinished(scrollShift + offsetDim >= scrollDim);
+    }
+
+    const removeCB = () => contentRef.current?.removeEventListener('scroll', scrollCB);
+
     React.useEffect(() => {
         if(disableAutoHide) return;
         if(contentRef.current === null) return;
-
-        const scrollCB = () => {
-            if(contentRef.current === null) return;
-
-            const scrollShift = isHorizontal ? contentRef.current.scrollLeft : contentRef.current.scrollTop;
-            const scrollDim = isHorizontal ? contentRef.current.scrollWidth : contentRef.current.scrollHeight;
-            const offsetDim = isHorizontal ? contentRef.current.offsetWidth : contentRef.current.offsetHeight;
-            
-            setIsStarted(scrollShift > 0);
-            setIsFinished(scrollShift + offsetDim >= scrollDim);
-
-            // if (!ticking) {
-            //     window.requestAnimationFrame(() => {
-                  
-            //         setTicking(false);
-            //     });
-            
-            //     setTicking(true);
-            //   }
-        }
-
-        const removeCB = () => contentRef.current?.removeEventListener('scroll', scrollCB);
 
         contentRef.current.addEventListener('scroll', scrollCB);
         scrollCB();
 
         return removeCB;
     }, [contentRef.current]);
+
+    React.useEffect(() => {
+        scrollCB();
+    }, [children]);
 
     const isHorizontal = direction == 'horizontal';
     

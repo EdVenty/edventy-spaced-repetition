@@ -24,6 +24,8 @@ export interface QuizCardProps {
   contentProps?: React.ComponentProps<typeof Card.Content>;
   /** React props of Card.Sidebar */
   sidebarProps?: React.ComponentProps<typeof Card.Sidebar>;
+  /** React props of Scrollview */
+  scrollviewProps?: React.ComponentProps<typeof Scrollview>;
   
   /** Page selection callback. */
   onPageSelected?: (page: number) => any;
@@ -44,6 +46,7 @@ export const QuizCard = ({
     onClose,
     contentProps,
     sidebarProps,
+    scrollviewProps,
     ...props
 }: QuizCardProps & React.HTMLProps<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>) => {
     const [answerShown, setAnswerShown] = React.useState(false);
@@ -63,7 +66,7 @@ export const QuizCard = ({
         <Card.Content {...contentProps}>
            <Spacing direction='vertical' justify='space-between' style={{height: '100%'}}>
                 <Spacing className='h-full' direction='vertical' spacing={30}>
-                    <Scrollview hideButtons>
+                    <Scrollview step={100} {...scrollviewProps} style={{maxHeight: 500, ...scrollviewProps?.style}}>
                         <Spacing spacing={30} direction='vertical'>
                             <Spacing spacing={30} direction='vertical'>
                                 <Spacing spacing={10} direction='vertical'>
@@ -94,7 +97,7 @@ export const QuizCard = ({
                 </div>
             </Spacing>
         </Card.Content>
-        <Card.Sidebar float='right' {...sidebarProps}>
+        {/* <Card.Sidebar float='right' {...sidebarProps}>
             {title ? <Typography.Heading3>{title}</Typography.Heading3> : null}
             <Scrollview>
                 <div style={{height: '100%', padding: "20px 30px"}}>
@@ -105,7 +108,7 @@ export const QuizCard = ({
                 </Spacing>
                 </div>
             </Scrollview>
-        </Card.Sidebar>
+        </Card.Sidebar> */}
   </Card>;
 }
 

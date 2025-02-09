@@ -4,8 +4,10 @@
   --green-color: #8FD9A1;
   --red-color: #F29999;
   --brown-color: #400601;
+  --warm-color: #FFFDF8;
 
   --dark-color: var(--brown-color);
+  --light-color: var(--warm-color);
 }
 
 @keyframes button-active {
@@ -22,6 +24,7 @@
   font-weight: 700;
   line-height: 1;
   border: black solid 3px;
+  background-color: var(--light-color);
 }
 /* .storybook-button::after {
   content: none;
@@ -39,11 +42,11 @@
 
 .storybook-button--primary {
   background-color: var(--primary-color);
-  color: white;
+  color: var(--light-color);
 }
 .storybook-button--borderd {
   /* box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset; */
-  background-color: white;
+  background-color: var(--light-color);
   color: black;
 }
 .storybook-button--green {
