@@ -8,7 +8,8 @@ import { Content } from './Content';
 import { Pagination } from './Pagination';
 import { Scrollview } from './Scrollview';
 import { Divider } from './Divider';
-import { Rating } from './Rating';
+// import { Rating } from './Rating';
+import { Clickable } from './Clickable';
 
 export type QuestionHead = {
     title: string;
@@ -52,14 +53,21 @@ export const QuizCard = ({
     ...props
 }: QuizCardProps & React.HTMLProps<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>) => {
     const [answerShown, setAnswerShown] = React.useState(false);
-    const [cardHeight, setCardHeight] = React.useState(document.body.scrollHeight);
+    const [bodyBox, setBodyBox] = React.useState({
+        width: document.body.scrollWidth,
+        height: document.body.scrollHeight
+    });
     const [showSidebar, setShowSidebar] = React.useState(document.body.scrollWidth > 800);
-    const [rating, setRating] = React.useState(0);
+    // const [rating, setRating] = React.useState(0);
+    const [_page, _setPage] = React.useState(1);
 
 
     React.useEffect(() => {
         const updateReizeDependantProperties = () => {
-            setCardHeight(document.body.scrollHeight * 0.7);
+            setBodyBox({
+                width: document.body.scrollWidth,
+                height: document.body.scrollHeight
+            });
             setShowSidebar(document.body.scrollWidth > 800);
         }
 
@@ -78,6 +86,13 @@ export const QuizCard = ({
         }
         setAnswerShown(!(opened ?? answerShown));
     }
+
+    const setPage = (i: number) => {
+        onPageSelected?.(i);
+        _setPage(i);
+    }
+
+    const smallButtons = bodyBox.width < 500;
 
     return <Card {...props}>
         <Card.Content {...contentProps}>
@@ -100,17 +115,17 @@ export const QuizCard = ({
                         </Spacing>
                     </Scrollview>
                     <Spacing>
-                        <Button label={opened ?? answerShown ? 'Hide answer' : 'Show answer'} onClick={onAnswerButton}/>
-                        <Button label='Mark as mastered' variant='green'/>
-                        <Button label='Add to practice' variant='red'/>
+                        <Button label={opened ?? answerShown ? 'Hide answer' : 'Show answer'} onClick={onAnswerButton} size={smallButtons ? 'small' : 'medium'}/>
+                        <Button label='Mark as mastered' variant='green' size={smallButtons ? 'small' : 'medium'}/>
+                        <Button label='Add to practice' variant='red' size={smallButtons ? 'small' : 'medium'}/>
                     </Spacing>
                 </Spacing>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
                     <Pagination size={allQuestions?.length ?? 1} input onChange={(p) => {
                         if(Number.isInteger(p)){
-                            onPageSelected?.(p as number);
+                            setPage(p as number);
                         }
-                    }}/>
+                    }} value={_page}/>
                 </div>
             </Spacing>
         </Card.Content>
@@ -119,19 +134,22 @@ export const QuizCard = ({
             <div>
                 {title ? <Typography.Paragraph style={{margin: "20px 30px 0 30px"}} strong>{title}</Typography.Paragraph> : null}
                 <Scrollview style={{marginBlock: '20px'}} variant='outlined' step={200}>
-                    <div style={{padding: "20px 30px"}}>
+                    <div style={{height: '300px', padding: "20px 30px"}}>
                         <Spacing direction='vertical'>
-                            {allQuestions?.map(q => <Spacing>
-                                <Typography.Paragraph>{q.title}</Typography.Paragraph>
-                            </Spacing>)}
+                            {allQuestions?.map((q, i) => <Clickable onClick={() => setPage(i + 1)} key={i}>
+                                <Spacing>
+                                    <Typography.Paragraph>{i + 1}</Typography.Paragraph>
+                                    <Typography.Paragraph>{q.title}</Typography.Paragraph>
+                                </Spacing>
+                            </Clickable>)}
                         </Spacing>
                     </div>
                 </Scrollview>
             </div>
-            <div style={{padding: '20px 30px'}}>
+            {/* <div style={{padding: '20px 30px'}}>
                 <Typography strong>Rate quiz</Typography>
-                <Rating onApply={(v) => setRating(v)} value={0}/>
-            </div>
+                <Rating onApply={(v) => setRating(v)} value={rating}/>
+            </div> */}
         </Spacing>
         </Card.Sidebar> : null}
   </Card>;

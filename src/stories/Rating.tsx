@@ -3,12 +3,18 @@ import { faStar as faStarOutlined } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
+import './rating.css';
+
 
 export interface RatingProps {
-    /** Rating from 0 to 5 */
+    /** Rating from 0 to 5. Makes appliable value unchangeable but keeps display properties.. */
     value?: number;
+    /** Default rating from 0 to 5. */
+    defaultValue?: number;
     /** Is rating disabled */
     disabled?: boolean;
+    /** Doesn't round values to a full star. */
+    sharpened?: boolean;
 
     /** On rating applied handler */
     onApply?: (v: number) => any;
@@ -18,28 +24,34 @@ export interface RatingProps {
 
 export const Rating = ({
     value,
+    defaultValue = 0,
     disabled,
+    sharpened = false,
     onApply,
     onChange,
     ...props
 }: RatingProps & React.HTMLProps<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>) => {
-    const [_value, setValue] = React.useState(value ?? 0);
-    const [oldValue, setOldValue] = React.useState(0);
+    const [_value, setValue] = React.useState(value);
+    const [oldValue, setOldValue] = React.useState(value ?? defaultValue ?? 0);
     const ratingRef = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
         const mouseCB = (e: MouseEvent) => {
-            if(ratingRef.current === null) return;
+            if(disabled || ratingRef.current === null) return;
 
             const rect = ratingRef.current.getBoundingClientRect();
-            if(e.pageX >= rect.left && e.pageX <= rect.right && e.pageY >= rect.top && e.pageY <= rect.bottom){
-                const newValue = (e.pageX - rect.left + 2) / (rect.width - 2) * 5;
+            // const offsetX = ratingRef.current.scrollLeft;
+            // const offsetY = ratingRef.current.scrollTop;
+
+            if(e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom){
+                let newValue = (e.pageX - rect.left + 2) / (rect.width - 2) * 5;
+                if(!sharpened) newValue = Math.ceil(newValue);
                 
-                onChange?.(newValue);
+                onChange?.(newValue ?? oldValue);
                 setValue(newValue); 
             }
             else{
-                setValue(oldValue);
+                setValue(undefined);
             }
         }
 
@@ -48,9 +60,17 @@ export const Rating = ({
         return () => document.removeEventListener('mousemove', mouseCB);
     }, []);
 
-    const v = value ?? _value;
+    const mouseClickCB = () => {
+        if(disabled) return;
+        if(_value != undefined && value == undefined){
+            setOldValue(_value);
+        }
+        onApply?.(_value ?? oldValue);
+    }
 
-    return <div ref={ratingRef}>
+    const v = _value ?? value ?? oldValue;
+
+    return <div ref={ratingRef} {...props} onClick={mouseClickCB} className={['rating', props.className].join(' ')}>
         <RatingStar value={v}/>
         <RatingStar value={v - 1}/>
         <RatingStar value={v - 2}/>

@@ -14,7 +14,7 @@ export interface PaginationProps {
     /** Amount of pages. */
     size: number;
     /** Overrides the current page number */
-    current?: number;
+    value?: number;
     /** Let the user input page number */
     input?: boolean;
     /** Previous button inner component */
@@ -29,7 +29,7 @@ export interface PaginationProps {
 
 export const Pagination = ({
     size,
-    current,
+    value,
     input,
     prev,
     next,
@@ -39,9 +39,9 @@ export const Pagination = ({
 }: PaginationProps & React.HTMLProps<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>) => {
     const [_current, _setCurrent] = React.useState(1);
 
-    const value = current ?? _current;
+    const _value = value ?? _current;
     const page = input 
-        ? <Input placeholder='1' className='pagination-current' value={value.toString()} onApply={(v) => {
+        ? <Input placeholder='1' className='pagination-current' value={_value.toString()} onApply={(v) => {
             if(typeof(v) === 'string'){
                 let num = Number.parseInt(v);
                 if(Number.isNaN(num)){
@@ -55,27 +55,27 @@ export const Pagination = ({
         : <Typography className='pagination-current'>{value}</Typography>;
 
     const _onChange = (page: number) => {
-        if(current === undefined){
+        if(value === undefined){
             _setCurrent(page);
         }
         onChange?.(page);
     }
 
     const onPrevClick = () => {
-        if(value > 1){
-            _onChange(value - 1);
+        if(_value > 1){
+            _onChange(_value - 1);
         }
         else if(update === 'always'){
-            _onChange(value);
+            _onChange(_value);
         }
     }
 
     const onNextClick = () => {
-        if(value < size){
-            _onChange(value + 1);
+        if(_value < size){
+            _onChange(_value + 1);
         }
         else if(update === 'always'){
-            _onChange(value);
+            _onChange(_value);
         }
     }
     

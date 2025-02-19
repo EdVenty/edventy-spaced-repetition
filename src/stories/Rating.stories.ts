@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, fn, userEvent, within } from '@storybook/test';
+import { fn } from '@storybook/test';
 
 import { Rating } from './Rating';
 
@@ -31,8 +31,20 @@ export const Default: Story = {
   }
 }
 
+export const Sharp: Story = {
+  args: {
+    sharpened: true
+  }
+}
+
 export const Value: Story = {
   args: {
     value: 2.5
+  }
+}
+
+export const DefaultValue: Story = {
+  args: {
+    defaultValue: 3
   }
 }

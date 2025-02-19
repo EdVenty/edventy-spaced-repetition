@@ -42,7 +42,7 @@ const pages: Path[] = [
 },
 {
     text: "Notes",
-    value: "/n"
+    value: "/"
 }
 ];
 

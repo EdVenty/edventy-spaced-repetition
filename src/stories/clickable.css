@@ -1,0 +1,15 @@
+.clickable {
+    pointer-events: all;
+    cursor: pointer;
+}
+
+@keyframes clickable-active {
+    0% {scale: 1;}
+    50% {scale: 0.9;}
+    100% {scale: 1;}
+}
+
+.clickable--active {
+    animation-name: clickable-active;
+    animation-duration: 0.2s;
+}

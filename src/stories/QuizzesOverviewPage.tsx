@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Header } from './Header';
-import { Spacing } from './Spacing';
+// import { Spacing } from './Spacing';
 import { QuizPreview } from './QuizPreview';
-import { Scrollview } from './Scrollview';
+// import { Scrollview } from './Scrollview';
 
 import './quizzes-overview-page.css';
 
@@ -87,11 +87,14 @@ export const QuizzesOverviewPage: React.FC = () => {
         onCreateAccount={() => setUser({ name: 'Jane Doe' })}
       />
       <section className="quizzes-overview-page">
-        <Scrollview direction="horizontal" step={200}>
+        {/* <Scrollview direction="horizontal" step={200}>
           <Spacing>
               {quizzes.map(q => <QuizPreview {...q} className='h-full' style={{width: 250}} clickable/>)}
           </Spacing>
-        </Scrollview>
+        </Scrollview> */}
+        <div style={{display: 'flex', flexWrap: 'wrap', gap: 10, margin: 20}}>
+          {quizzes.map(q => <QuizPreview {...q} className='h-full' style={{width: 250}} clickable/>)}
+        </div>
       </section>
     </article>
   );

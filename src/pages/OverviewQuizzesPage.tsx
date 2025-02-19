@@ -5,9 +5,9 @@ import { FirebaseContext } from '../context/firebase';
 import { IQuiz } from '../entities/Quiz';
 import { useLocation, useNavigate } from 'react-router';
 import { Header } from '../stories/Header';
-import { Spacing } from '../stories/Spacing';
+// import { Spacing } from '../stories/Spacing';
 import { QuizPreview } from '../stories/QuizPreview';
-import { Scrollview } from '../stories/Scrollview';
+// import { Scrollview } from '../stories/Scrollview';
 import { Typography } from '../stories/Typography';
 
 // const { Title } = Typography;
@@ -30,7 +30,7 @@ const pages: Path[] = [
     },
     {
         text: "Notes",
-        value: "/n"
+        value: "/"
     }
 ];
 
@@ -62,10 +62,17 @@ export const OverviewQuizzesPage: React.FC = () => {
 
     if (loading) {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                {/* <Spin size="large" /> */}
-                <Typography>Loading</Typography>
-            </div>
+            <article className='quizzes-overview-page-root'>
+                <Header
+                    pages={pages}
+                    onNavClick={(p) => navigate(p)}
+                    current={'/' + location.pathname.split('/')[1]}
+                />
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+                    {/* <Spin size="large" /> */}
+                    <Typography>Loading</Typography>
+                </div>
+            </article>
         );
     }
 
@@ -76,7 +83,17 @@ export const OverviewQuizzesPage: React.FC = () => {
             current={'/' + location.pathname.split('/')[1]}
         />
         <section className="quizzes-overview-page">
-        <Scrollview direction="horizontal">
+            <div style={{display: 'flex', flexWrap: 'wrap', gap: 10, margin: 20}}>
+                {quizzes.map(q => <QuizPreview 
+                    title={q.title}
+                    size={q.questions.length}
+                    className='h-full' 
+                    style={{width: 250}} 
+                    clickable
+                    onClick={() => navigate(`/q/${q.id}`)}
+                />)}
+            </div>
+        {/* <Scrollview direction="horizontal">
             <Spacing>
                 {quizzes.map(q => <QuizPreview 
                     title={q.title}
@@ -87,7 +104,7 @@ export const OverviewQuizzesPage: React.FC = () => {
                     onClick={() => navigate(`/q/${q.id}`)}
                 />)}
             </Spacing>
-        </Scrollview>
+        </Scrollview> */}
         </section>
     </article>;
 };

@@ -112,9 +112,6 @@ export const QuizPage: React.FC = () => {
           onPageSelected={onPageSelected}
           onOpen={() => setIsAnswerOpened(true)}
           onClose={() => setIsAnswerOpened(false)}
-          sidebarProps={{style: {
-            maxWidth: '200px'
-          }}}
         />
         </Spacing>
       </section>
